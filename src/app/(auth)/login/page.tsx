@@ -1,13 +1,55 @@
-import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/react";
+"use client";
+import { Button } from "@nextui-org/button";
+import { Form, Formik } from "formik";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-const page = () => {
+import { setUser } from "@/src/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/src/redux/hooks";
+import { useLogInMutation } from "@/src/redux/features/auth/authApi";
+import FormikInput from "@/src/components/formik/FormikInput";
+
+type TSignInValue = {
+  email: string;
+  password: string;
+};
+
+const LoginPage = () => {
+  const [login] = useLogInMutation();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const handleSubmit = async (values: TSignInValue) => {
+    const toastId = toast.loading("Login processing");
+
+    try {
+      const res = await login(values).unwrap();
+
+      dispatch(setUser({ user: res.data.user, token: res.token }));
+      localStorage.setItem("token", res.token);
+      toast.success("Logged in", { id: toastId, duration: 2000 });
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+      const err = error;
+
+      toast.error(
+        err?.data.errorMessages[0].message || "Something went wrong",
+        {
+          id: toastId,
+          duration: 2000,
+        }
+      );
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="bg-slate-950 p-8 m-5 rounded-lg shadow-lg w-full max-w-md space-y-6">
         {/* Login Header */}
         <h1 className="text-3xl font-semibold text-center text-white mb-6">
-          Log in to your account
+          Please Log In !
         </h1>
 
         {/* Formik Form */}
@@ -18,15 +60,15 @@ const page = () => {
           {() => (
             <Form className="space-y-5">
               {/* Email */}
-              <FormikInput name="email" label="Email" type="email" />
+              <FormikInput label="Email" name="email" type="email" />
 
               {/* Password */}
-              <FormikInput name="password" label="Password" type="password" />
+              <FormikInput label="Password" name="password" type="password" />
 
               {/* Submit Button */}
               <Button
-                type="submit"
                 className="w-full bg-blue-600 text-white hover:bg-blue-700"
+                type="submit"
               >
                 Log In
               </Button>
@@ -37,13 +79,13 @@ const page = () => {
         {/* Footer */}
         <p className="text-center text-sm text-gray-400 mt-5">
           Don&apos;t have an account?{" "}
-          <Link href="/registration" className="text-blue-500 hover:underline">
+          <Link className="text-blue-500 hover:underline" href="/registration">
             Sign up
           </Link>
         </p>
         <p className="text-center text-sm text-gray-400 mt-5">
           Forget your password?{" "}
-          <Link href="/recover" className="text-blue-500 hover:underline">
+          <Link className="text-blue-500 hover:underline" href="/recover">
             Recover now!
           </Link>
         </p>
@@ -52,4 +94,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default LoginPage;
