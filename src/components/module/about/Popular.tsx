@@ -7,7 +7,7 @@ const articles = [
     content:
       "Discover the lesser-known but equally breathtaking destinations in Europe that will leave you in awe, from charming villages to stunning coastlines.",
     upVotes: 150,
-    image: "/popular/Europe.jpeg",
+    image: "https://i.postimg.cc/8cFWkH5S/image.avif",
     author: "Emily Wanderlust",
   },
   {
@@ -15,7 +15,7 @@ const articles = [
     content:
       "Learn practical tips on how to save money while traveling, from finding affordable accommodations to scoring the best flight deals, without compromising your comfort.",
     upVotes: 250,
-    image: "/popular/comfort.jpg",
+    image: "https://i.postimg.cc/yYZ9wvth/image-1.avif",
     author: "John Backpacker",
   },
   {
@@ -23,7 +23,7 @@ const articles = [
     content:
       "Master the art of packing with our comprehensive guide that covers everything from short getaways to long-term travel, ensuring you have everything you need without overpacking.",
     upvotes: 300,
-    image: "/popular/Packing-Guide.jpg",
+    image: "https://i.postimg.cc/d0qyZv1n/image-2.avif",
     author: "Sara Nomad",
   },
 ];

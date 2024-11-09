@@ -14,8 +14,13 @@ import { ThemeSwitch } from "../theme-switch";
 
 export const links = [
   {
-    title: "About us",
-    href: "/about-us",
+    title: "Home",
+    href: "/",
+    secure: false,
+  },
+  {
+    title: "About",
+    href: "/about",
     secure: false,
   },
   {
