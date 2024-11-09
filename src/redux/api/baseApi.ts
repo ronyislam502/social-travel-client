@@ -7,9 +7,10 @@ import {
   createApi,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
+import { toast } from "sonner";
+
 import { RootState } from "../store";
 import { logout, setUser } from "../features/auth/authSlice";
-import { toast } from "sonner";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api",
@@ -72,6 +73,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["service", "slot", "review", "user", "booking"],
+  tagTypes: ["user"],
   endpoints: () => ({}),
 });

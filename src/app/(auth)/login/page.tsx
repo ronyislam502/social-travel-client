@@ -2,45 +2,48 @@
 import { Button } from "@nextui-org/button";
 import { Form, Formik } from "formik";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-import { setUser } from "@/src/redux/features/auth/authSlice";
-import { useAppDispatch } from "@/src/redux/hooks";
-import { useLogInMutation } from "@/src/redux/features/auth/authApi";
 import FormikInput from "@/src/components/formik/FormikInput";
+import { useLogInMutation } from "@/src/redux/features/auth/authApi";
+import { useAppDispatch } from "@/src/redux/hooks";
+import { TError } from "@/src/types/global";
+import { setUser } from "@/src/redux/features/auth/authSlice";
 
-type TSignInValue = {
+type TLogin = {
   email: string;
   password: string;
 };
 
 const LoginPage = () => {
-  const [login] = useLogInMutation();
+  const [logIn] = useLogInMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const handleSubmit = async (values: TSignInValue) => {
+  const handleSubmit = async (data: TLogin) => {
     const toastId = toast.loading("Login processing");
 
     try {
-      const res = await login(values).unwrap();
+      const LoginInfo = {
+        email: data.email,
+        password: data.password,
+      };
+      const res = await logIn(LoginInfo).unwrap();
+      console.log("data", res);
 
-      dispatch(setUser({ user: res.data.user, token: res.token }));
+      dispatch(setUser({ user: res?.data?.user, token: res.accessToken }));
       localStorage.setItem("token", res.token);
       toast.success("Logged in", { id: toastId, duration: 2000 });
       router.push("/");
     } catch (error) {
       console.log(error);
-      const err = error;
+      const err = error as TError;
 
-      toast.error(
-        err?.data.errorMessages[0].message || "Something went wrong",
-        {
-          id: toastId,
-          duration: 2000,
-        }
-      );
+      toast.error(err?.data?.message || "Something went wrong", {
+        id: toastId,
+        duration: 2000,
+      });
     }
   };
 
@@ -79,7 +82,7 @@ const LoginPage = () => {
         {/* Footer */}
         <p className="text-center text-sm text-gray-400 mt-5">
           Don&apos;t have an account?{" "}
-          <Link className="text-blue-500 hover:underline" href="/registration">
+          <Link className="text-blue-500 hover:underline" href="/signUp">
             Sign up
           </Link>
         </p>
