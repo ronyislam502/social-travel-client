@@ -5,14 +5,16 @@ import Link from "next/link";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { useEffect } from "react";
 import AOS from "aos";
+
 import DownVote from "../module/articles/DownVote";
 import UpVote from "../module/articles/UpVote";
+import Follow from "../action/Follow";
+
+import DeletePost from "./DeletePost";
+import UpdatePost from "./updatePost";
 
 import { formatDateTime } from "@/src/utils/date";
 import { TPost } from "@/src/types";
-import DeletePost from "./DeletePost";
-import Follow from "../action/Follow";
-import UpdatePost from "./updatePost";
 
 type TPostCard = {
   data: TPost[];
@@ -23,10 +25,10 @@ type TPostCard = {
 const PostCard = ({ data, editingSystem = false }: TPostCard) => {
   useEffect(() => {
     AOS.init({
-      duration: 600, // Animation duration
-      easing: "ease-in-out", // Animation easing
-      once: false, // Whether animation should happen only once
-      mirror: true, // Whether elements should animate out while scrolling past them
+      duration: 600,
+      easing: "ease-in-out",
+      once: false,
+      mirror: true,
     });
   }, []);
 

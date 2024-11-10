@@ -14,10 +14,11 @@ import {
 import Dropdown from "../formik/Dropdown";
 import TextEditor from "../formik/TextEditor";
 
+import CustomModal from "./CustomModal";
+
 import { TPost } from "@/src/types";
 import { useUpdatePostMutation } from "@/src/redux/features/post/postApi";
 import { TError } from "@/src/types/global";
-import CustomModal from "./CustomModal";
 
 type TProps = {
   postDetails: TPost;
@@ -105,7 +106,7 @@ const UpdatePost = ({ postDetails }: TProps) => {
             validationSchema={createPostValidationSchema}
             onSubmit={handleSubmit}
           >
-            {({ setFieldValue, values }) => {
+            {({ setFieldValue }) => {
               return (
                 <Form className="space-y-5">
                   <FormikInput label="Title" name="title" />
