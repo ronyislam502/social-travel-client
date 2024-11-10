@@ -1,13 +1,13 @@
 "use client";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { Suspense, useState } from "react";
+
 import Loader from "@/src/components/ui/Loader";
-import ErrorBoundary from "@/src/components/ui/ErrorBoundary";
+import ErrorBoundary from "@/src/components/ErrorBoundary";
 
 const UserData = () => {
   const [isFollowerModalOpen, setIsFollowerModalOpen] = useState(false);
   const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
-
 
   return (
     <div>
