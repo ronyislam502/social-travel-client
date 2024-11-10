@@ -1,4 +1,4 @@
-import TextSkeleton from "../formik/TextSkeleton";
+import TextSkeleton from "./TextSkeleton";
 import TitleSkeleton from "./TitleSkeleton";
 
 const SidebarLoading = () => {
