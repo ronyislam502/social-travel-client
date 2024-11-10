@@ -23,18 +23,19 @@ interface TextEditorProps {
 
 const TextEditor = ({ setFieldValue }: TextEditorProps) => {
   const [content, setContent] = useState("");
+
   return (
     <div>
       <ReactQuill
+        modules={modules}
+        theme="snow"
         value={content}
         onChange={(value) => {
           setContent(value);
           setFieldValue("content", value);
         }}
-        modules={modules}
-        theme="snow"
       />
-      <ErrorMessage name="content" component="p" className="text-danger" />
+      <ErrorMessage className="text-danger" component="p" name="content" />
     </div>
   );
 };

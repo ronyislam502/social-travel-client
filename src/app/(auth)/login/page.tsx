@@ -30,7 +30,6 @@ const LoginPage = () => {
         password: data.password,
       };
       const res = await logIn(LoginInfo).unwrap();
-      console.log("data", res);
 
       dispatch(setUser({ user: res?.data?.user, token: res.accessToken }));
       localStorage.setItem("token", res.token);

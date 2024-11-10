@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import FormikInput from "@/src/components/formik/FormikInput";
 import { useSignUpMutation } from "@/src/redux/features/auth/authApi";
 import { TError } from "@/src/types/global";
-import Dropdown from "@/src/components/formik/Dropdown";
 
 type TSignUp = {
   name: string;
@@ -17,7 +16,7 @@ type TSignUp = {
   password: string;
   phone: string;
   address: string;
-  image: File | null;
+  image?: File | null;
 };
 
 const initialValues: TSignUp = {
@@ -36,18 +35,21 @@ const SignUpPage = () => {
     const toastId = toast.loading("User creating");
 
     try {
-      const formData = new FormData();
       const signUpInfo = {
         name: data.name,
         email: data.email,
         password: data.password,
         phone: data.phone,
         address: data.address,
+        image: data.image,
       };
+
+      const formData = new FormData();
+      console.log(formData);
 
       formData.append("data", JSON.stringify(signUpInfo));
       if (data.image) {
-        formData.append("avatar", data.image);
+        formData.append("image", data.image);
       }
       const res = await signUp(formData).unwrap();
 
@@ -57,6 +59,8 @@ const SignUpPage = () => {
       }
     } catch (error) {
       const err = error as TError;
+
+      console.log(err);
 
       toast.error(err.data?.message || "Something went wrong", {
         id: toastId,
