@@ -3,10 +3,14 @@ import Link from "next/link";
 import { FaAnglesUp } from "react-icons/fa6";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { useEffect, useState } from "react";
+
+import Subscribe from "../../action/Subscribe";
+import SidebarLoading from "../../loading/SidebarLoading";
+
 import { useGetPopularPostsQuery } from "@/src/redux/features/post/postApi";
 import { useAppSelector } from "@/src/redux/hooks";
 import { selectCurrentUser } from "@/src/redux/features/auth/authSlice";
-import { TUserDetails } from "@/src/types";
+import { TPopularPost, TUserDetails } from "@/src/types";
 
 const Sidebar = () => {
   const { data, isLoading } = useGetPopularPostsQuery("");
@@ -32,7 +36,7 @@ const Sidebar = () => {
                 Subscribe to unlock new features and if eligible, receive a
                 share of ads revenue.
               </p>
-              <Subscrib
+              <Subscribe
                 className="rounded-xl px-4 py-2 bg-primary text-white hover:bg-primary-100 font-semibold"
                 title="Subscribe"
               />
