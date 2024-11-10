@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 
-import UpdateProfileDetails from "./UpdateProfileDetails";
+import UpdateProfileDetails from "../UpdateProfileDetails";
+import ChangePassword from "../ChangePassword";
 
 import { TUserDetails } from "@/src/types";
 import CustomModal from "@/src/components/ui/CustomModal";
