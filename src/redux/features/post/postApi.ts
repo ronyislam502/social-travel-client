@@ -42,6 +42,14 @@ const postApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["post"],
     }),
+    getUserPosts: builder.query({
+      query: (args) => ({
+        url: `/bookings/user-post/:${args.email}`,
+        method: "GET",
+        body: args.data,
+      }),
+      providesTags: ["post"],
+    }),
   }),
 });
 
@@ -51,4 +59,5 @@ export const {
   useUpdatePostMutation,
   useDeletePostMutation,
   useGetPopularPostsQuery,
+  useGetUserPostsQuery,
 } = postApi;
